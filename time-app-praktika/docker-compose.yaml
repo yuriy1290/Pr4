@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  api:
+    restart: alwyas
+    build: ./api
+    ports:
+      - "5555:5000"
+    depends_on:
+      - mysql
+  frontend:
+    restart: alwyas
+    build: ./frontend
+    ports:
+      - "8954:8954"
+  mysql: 
+    restart: alwyas
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=time_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+  adminer:
+    restart: alwyas
+    image: adminer
+    ports:
+      - "8080:8080"
+volumes:
+  mysql_data:
+
